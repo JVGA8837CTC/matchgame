@@ -25,6 +25,9 @@ namespace wpftestapp
         DispatcherTimer timer = new DispatcherTimer();
         int tenthsOfSecondsElapsed;
         int matchesFound;
+        int rightPicks = 0;
+        int wrongPicks = 0;
+        int bestTime = 100000;
         public MainWindow()
         {
             InitializeComponent();
@@ -38,10 +41,18 @@ namespace wpftestapp
         {
             tenthsOfSecondsElapsed++;
             timeTextBlock.Text = (tenthsOfSecondsElapsed / 10F).ToString("0.0s");
+            
+            //8 Matches = Game Over
             if (matchesFound == 8)
             {
                 timer.Stop();
                 timeTextBlock.Text = timeTextBlock.Text + " - Play again?";
+                
+                if (tenthsOfSecondsElapsed < bestTime)
+                {
+                    bestTime = tenthsOfSecondsElapsed;
+                    textBest.Text = (tenthsOfSecondsElapsed / 10F).ToString("0.0s");
+                }
             }
         }
 
@@ -62,7 +73,7 @@ namespace wpftestapp
 
             foreach (TextBlock textBlock in mainGrid.Children.OfType<TextBlock>())
             {
-                if (textBlock.Name != "timeTextBlock")
+                if (textBlock.Tag == null)
                 {
                     textBlock.Visibility = Visibility.Visible;
                     int index = random.Next(animalEmoji.Count);
@@ -81,28 +92,45 @@ namespace wpftestapp
         {
 
         }
+        private void UpdateStats()
+        {
+            TextRight.Text = rightPicks.ToString();
+            TextWrong.Text = wrongPicks.ToString();
+            float percent = (float)rightPicks / (float)(rightPicks + wrongPicks);
+            TextPercent.Text = percent.ToString();
+        }
+        
+        
+        
         TextBlock lastTextBlockClicked;
         bool findingMatch = false;
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            TextBlock textBlock = sender as TextBlock; if (findingMatch == false)
+            TextBlock textBlock = sender as TextBlock; 
+            
+            //Not looking for match yet
+            if (findingMatch == false)
             {
                 textBlock.Visibility = Visibility.Hidden;
                 lastTextBlockClicked = textBlock;
                 findingMatch = true;
             }
 
-
+            //Looking for match here
             else if (textBlock.Text == lastTextBlockClicked.Text)
             {
                 matchesFound++;
                 textBlock.Visibility = Visibility.Hidden;
                 findingMatch = false;
+                rightPicks++;
+                UpdateStats();
             }
             else
             {
                 lastTextBlockClicked.Visibility = Visibility.Visible;
                 findingMatch = false;
+                wrongPicks++;
+                UpdateStats();
             }
         }
 

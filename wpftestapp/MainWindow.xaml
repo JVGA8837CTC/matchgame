@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpftestapp"
+        xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
         mc:Ignorable="d"
-        Title="Find them aminmals " Height="450" Width="400">
+        Title="Find them aminmals " Height="450" Width="500">
     <Grid x:Name="mainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -36,6 +37,20 @@
         <TextBlock HorizontalAlignment="Center" Grid.Row="3" Text="?" VerticalAlignment="Center" FontSize="36" Grid.Column="2" MouseDown="TextBlock_MouseDown"/>
         <TextBlock HorizontalAlignment="Center" Grid.Row="3" Text="?" VerticalAlignment="Center" FontSize="36" Grid.Column="1" MouseDown="TextBlock_MouseDown"/>
         <TextBlock HorizontalAlignment="Center" Grid.Row="3" Text="?" VerticalAlignment="Center" FontSize="36" MouseDown="TextBlock_MouseDown"/>
-        <TextBlock x:Name="timeTextBlock" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" FontSize="36" Grid.ColumnSpan="4" MouseDown="TimeTextBlock_MouseDown"/>
+        <TextBlock x:Name="timeTextBlock" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" FontSize="36" Grid.ColumnSpan="4" MouseDown="TimeTextBlock_MouseDown" Tag="SKIP"/>
+        <TextBlock x:Name="TextWrong" HorizontalAlignment="Left" Margin="2,1,0,0" Grid.Row="4" TextWrapping="Wrap" Text="Wrong" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Tag="SKIP" FontSize="24">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-0.467"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="-0.159"/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock x:Name="TextRight" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" Text="Right" VerticalAlignment="Center" Tag="SKIP" FontSize="24"/>
+        <TextBlock x:Name="TextPercent" HorizontalAlignment="Left" Margin="3,55,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Tag="SKIP" Text="%" FontSize="24"/>
+        <TextBlock x:Name="textBest" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" Text="Best" VerticalAlignment="Center" FontSize="24" Tag="SKIP"/>
+
     </Grid>
 </Window>
